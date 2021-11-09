@@ -1,0 +1,10 @@
+.drag-area {
+  width: 100%;
+  height: calc(100vh - 110px);
+  margin: 20px;
+  border: dashed rgb(73, 71, 71) 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}
