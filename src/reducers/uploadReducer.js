@@ -3,6 +3,7 @@ const HIDE_UPLOADER = 'HIDE_UPLOADER'
 const ADD_FILE_TO_UPLOADER = 'ADD_FILE_TO_UPLOADER'
 const REMOVE_FILE_FROM_UPLOADER = 'REMOVE_FILE_FROM_UPLOADER'
 const CHANGE_PROGRESS = 'CHANGE_PROGRESS'
+const CLEAR_STATE = 'CLEAR_STATE'
 
 const defaultState = {
   isVisible: false,
@@ -37,6 +38,11 @@ export default (state = defaultState, action) => {
           ),
         ],
       }
+    case CLEAR_STATE:
+      return {
+        isVisible: false,
+        files: [],
+      }
     default:
       return state
   }
@@ -56,3 +62,4 @@ export const changeProgressUploaderReducer = (progress) => ({
   type: CHANGE_PROGRESS,
   payload: progress,
 })
+export const clearStateUploaderReducer = () => ({ type: CLEAR_STATE })

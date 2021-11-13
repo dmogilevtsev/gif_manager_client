@@ -4,7 +4,7 @@ import { X } from 'react-bootstrap-icons'
 import UploadFile from './upload-file'
 import './style.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { hideUploaderReducer } from '../../reducers/uploadReducer'
+import { clearStateUploaderReducer, hideUploaderReducer } from '../../reducers/uploadReducer'
 
 const Uploader = () => {
   const dispatch = useDispatch()
@@ -12,15 +12,18 @@ const Uploader = () => {
   const files = useSelector(state => state.upload.files)
   const isVisible = useSelector(state => state.upload.isVisible)
   
+  const hideUploadHandler = () => {
+    dispatch(clearStateUploaderReducer())
+  }
 
   return ( isVisible &&
     <div className="uploader">
       <Card className="p-2 shadow">
         <Card.Header>
           <Row>
-            <Col xs={6}>Downloads</Col>
+            <Col xs={6}>Upload</Col>
             <Col xs={6} className="text-end">
-              <Button onClick={() => dispatch(hideUploaderReducer())} variant="outline-secondary" size="sm" className="p-0">
+              <Button onClick={hideUploadHandler} variant="outline-secondary" size="sm" className="p-0">
                 <X size="1.5em"/>
               </Button>
             </Col>

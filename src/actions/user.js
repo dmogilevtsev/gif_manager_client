@@ -1,8 +1,7 @@
 import { setUser, logout as logoutReducer } from '../reducers/userReducer'
 import { ACCESS_TOKEN } from '../utils/names'
 import AuthService from '../services/AuthService'
-import axios from 'axios'
-import { AUTH_URL } from '../http'
+import $api, { AUTH_URL } from '../http'
 import {
   hideLoadingReducer,
   showLoadingReducer,
@@ -11,9 +10,8 @@ import {
 export const registration = async (email, password) => {
   try {
     const res = await AuthService.registration(email, password)
-    console.log('registration', res.data)
   } catch (error) {
-    alert(error.response.data.message)
+    alert(error?.response?.data?.message)
   }
 }
 
@@ -24,7 +22,7 @@ export const login = (email, password) => {
       dispatch(setUser(res.data.user))
       localStorage.setItem(ACCESS_TOKEN, res.data[ACCESS_TOKEN])
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error?.response?.data?.message)
     }
   }
 }
@@ -36,7 +34,7 @@ export const logout = () => {
       dispatch(logoutReducer())
       localStorage.removeItem(ACCESS_TOKEN)
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error?.response?.data?.message)
     }
   }
 }
@@ -45,15 +43,11 @@ export const checkAuth = () => {
   return async (dispatch) => {
     dispatch(showLoadingReducer())
     try {
-      const res = await axios.get(`${AUTH_URL}/refresh`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        },
-      })
+      const res = await $api.get(`${AUTH_URL}/refresh`)
       dispatch(setUser(res.data.user))
       localStorage.setItem(ACCESS_TOKEN, res.data[ACCESS_TOKEN])
     } catch (error) {
+      console.warn(error?.response)
       console.warn(error?.response?.data?.message)
     } finally {
       dispatch(hideLoadingReducer())
