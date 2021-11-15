@@ -7,13 +7,13 @@ import loadingReducer from './loadingReducer'
 import uploadReducer from './uploadReducer'
 
 const rootReducer = combineReducers({
-  user: userReducer,
-  files: fileReducer,
-  loading: loadingReducer,
-  upload: uploadReducer,
+	user: userReducer,
+	files: fileReducer,
+	loading: loadingReducer,
+	upload: uploadReducer,
 })
 
 export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+	rootReducer,
+	composeWithDevTools(applyMiddleware(thunk)),
 )

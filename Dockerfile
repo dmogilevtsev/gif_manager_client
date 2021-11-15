@@ -1,4 +1,5 @@
-FROM node:12.22.7-alpine as build
+ARG NODE_VERSION=16-alpine
+FROM node:$NODE_VERSION as build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package*json ./
